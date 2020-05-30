@@ -1,41 +1,14 @@
 version: "3"
 services:
-    www:
-        build: .
-        restart: always
+    app:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        env_file:
+            - ./.env
         ports: 
             - "80:80"
         volumes:
-            - .:/var/www/html/
-        links:
-            - db
+            - ./app/:/var/www/html/
         networks:
             - default
-    db:
-        image: mariadb
-        ports: 
-            - "3306:3306"
-        environment:
-            MYSQL_DATABASE: wordpress_local
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test
-            MYSQL_HOST: localhost
-            MYSQL_PORT: 3306
-        volumes:
-            - ./dump:/docker-entrypoint-initdb.d
-            - persistent:/var/lib/mysql
-        networks:
-            - default
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        links: 
-            - db:db
-        ports:
-            - 8000:80
-        environment:
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test
-volumes:
-    persistent:

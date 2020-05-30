@@ -1,20 +1,10 @@
 FROM php:7.2.9-apache 
 
-# Creating new working directory and assigne permission for web app
+# Creating new working directory and assign permission for web app
 RUN mkdir -p /var/www/html/
-COPY . /var/www/html/
-
-# Folder permission
+COPY ./app/ /var/www/html/
 RUN chmod 755 /var/www/html/
+RUN chown -R www-data:www-data /var/www
 
 # Install extensions
 RUN docker-php-ext-install mysqli
-
-# Install some base extensions
-RUN apt-get clean
-RUN apt-get update
-RUN apt-get install -y zip
-
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install
