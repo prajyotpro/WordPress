@@ -9,6 +9,6 @@ services:
         ports: 
             - "80:80"
         volumes:
-            - ./app/:/var/www/html/
+            - .:/var/www/html/
         networks:
             - default

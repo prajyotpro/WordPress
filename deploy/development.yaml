@@ -9,7 +9,7 @@ services:
         ports: 
             - "80:80"
         volumes:
-            - ./app/:/var/www/html/
+            - .:/var/www/html/
         links:
             - db
         networks:
@@ -27,15 +27,3 @@ services:
             MYSQL_PORT: 3306
         networks:
             - default
-#     phpmyadmin:
-#         image: phpmyadmin/phpmyadmin
-#         links: 
-#             - db:db
-#         ports:
-#             - 8000:80
-#         environment:
-#             MYSQL_USER: user
-#             MYSQL_PASSWORD: test
-#             MYSQL_ROOT_PASSWORD: test
-# volumes:
-#     persistent:
